@@ -1,8 +1,15 @@
-<%# if @user.kind == "buyer" %>
-  <%# link_to "become a seller", "/requests/new" %>
-<%# end %>
-<h1><%= @user.name %></h1>
-<p>You're <%= @user.kind %></p>
-<% if @request %>
-<b> You are rejected to become a seller because <%= @request.reason %> </b> 
-<% end %>
+    <% if logged_in? %>
+      <% if current_user.kind == "seller" %>
+      <p> You're seller </p>
+      <% else %>
+      <p><%= current_user.name %>, you are a buyer</p>
+            <% if current_user.requested == "pending" %>
+                 <h3> Request is pending </h3>
+            <% elsif current_user.requested == "rejected" %>
+     		     <b> You're Buyer,rejected because <%= current_user.requests.last.reason %></b>
+                <br> <%= link_to "become a seller", "/requests/new" %> </br>
+            <% elsif current_user.requested == nil %>
+                <%= link_to "become a seller", "/requests/new" %>
+          <% end %>
+        <% end %>
+    <% end %>   

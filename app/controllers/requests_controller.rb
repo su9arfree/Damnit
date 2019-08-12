@@ -12,19 +12,22 @@ class RequestsController < ApplicationController
     current_user.requests.create!
     current_user.update_attribute(:requested, "pending")
     respond_to do |format|
-      format.html {redirect_to "/requests"}
+      format.html {redirect_to root_path}
       format.json
     end
   end
   
   def update
     request = Request.find(params[:id])
+    user = request.user
     request.update_attributes reason: params[:request][:reason], status: params[:request_status]
     if request.status
       request.user.update_attribute(:kind, "seller")
+      user.update_attribute(:requested, "accepted")
       redirect_to action: :index
     else
       request.update_attribute(:unread, true)
+      user.update_attribute(:requested, "rejected")
       redirect_to action: :index
     end
     # request.user.update_attribute(:requested, params[:requested])

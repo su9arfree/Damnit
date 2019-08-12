@@ -1,2 +1,20 @@
 <h1>Home</h1>
 <p>This is the home pages</p>
+
+
+
+    <% if logged_in? %>
+      <% if current_user.kind == "seller" %>
+         <p> You are seller </p> 
+      <% else %>
+            <%= current_user.name %>
+            <% if current_user.requested == "pending" %>
+                 <h3> Request is pending </h3>
+            <% elsif current_user.requested == "rejected" %>
+     		     <b> You're Buyer,rejected because <%= current_user.requests.last.reason %></b>
+                <br> <%= link_to "become a seller", "/requests/new" %> </br>
+            <% elsif current_user.requested == nil %>
+                <%= link_to "become a seller", "/requests/new" %>
+          <% end %>
+        <% end %>
+    <% end %>   
