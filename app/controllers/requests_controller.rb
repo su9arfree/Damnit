@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
     @request = Request.new
   end
 
+
   def create
     current_user.requests.create!
     current_user.update_attribute(:requested, "pending")
@@ -39,6 +40,9 @@ class RequestsController < ApplicationController
     #   request.update_attribute(:unread, true)
     #   r
     # end
+  end
+
+  def show
   end
 
   private

@@ -15,7 +15,6 @@ class UsersController < ApplicationController
       render :new
       flash[:danger] = "ngu"
     end
-
   end
 
   def show

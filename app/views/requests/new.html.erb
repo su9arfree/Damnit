@@ -1,3 +1,5 @@
-<%= form_for(@request) do |f| %>
-  <%= f.submit "Become a seller" %>
-<% end %>
+	<%= form_for(@request) do |f| %>
+	<%= f.submit "Become a seller" %>
+    <%= link_to "Become a seller",(@request), method: :post, data: {confirm: 'U sure ?'}%>
+	<% end %>
+
